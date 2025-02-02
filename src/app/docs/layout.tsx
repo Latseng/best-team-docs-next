@@ -11,7 +11,16 @@ import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+async function getDocData() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs`);
+  const data = await res.json();
+  return data.data;
+}
+
+export default async function Layout({ children }: { children: React.ReactNode }) {
+
+  const docData = await getDocData();
+
   return (
     
       <ThemeProvider
@@ -21,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
       >
         <SidebarProvider>
-          <AppSidebar />
+          <AppSidebar docData={docData} />
           <div className="mt-16">
             <div className="flex items-center gap-2 p-2">
               <SidebarTrigger className="hidden md:flex" />

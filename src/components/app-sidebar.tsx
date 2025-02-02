@@ -22,12 +22,18 @@ import {
 } from "@/components/ui/collapsible";
 import Link from "next/link";
 
-// Menu items.
-const items = [
+
+
+export function AppSidebar({docData}) {
+  const pathname = usePathname();
+  
+  // Menu items.
+const category = [
   {
     title: "導覽",
     url: "/docs",
     icon: Compass,
+    contents: []
   },
   {
     title: "戰術",
@@ -35,44 +41,66 @@ const items = [
     url: "/docs/tactics",
     icon: Shield,
     //contens可選
-    contents: [
-      {
-        title: "CQB的原則",
-        url: "/docs/tactics/the-principle-of-cqb",
-      },
-      {
-        title: "CQB基本觀念：受迫面",
-        url: "/docs/tactics/cqb-fundamentals-the-fatal-funnel",
-      },
-    ],
+    contents: docData
+      .filter((data) => data.category === "tactics")
+      .map((item) => ({
+        title: item.title,
+        url: `/docs/tactics/${item.documentId}`,
+      })),
+    // [
+    //   {
+    //     title: "CQB的原則",
+    //     url: "/docs/tactics/the-principle-of-cqb",
+    //   },
+    //   {
+    //     title: "CQB基本觀念：受迫面",
+    //     url: "/docs/tactics/cqb-fundamentals-the-fatal-funnel",
+    //   },
+    // ]
   },
   {
     title: "裝備",
     url: "/docs/equipment",
     icon: Bolt,
+    contents: docData.filter((data) => (
+      data.category === "equipment"
+    )).map((item) => ({
+      title: item.title,
+      url: `/docs/equipment/${item.documentId}`
+    }))
   },
   {
     title: "肌力與體能",
     url: "/docs/strength-and-conditioning",
     icon: BicepsFlexed,
+    contents: docData
+      .filter((data) => data.category === "strength")
+      .map((item) => ({
+        title: item.title,
+        url: `/docs/strength-and-conditioning/${item.documentId}`,
+      })),
   },
   {
     title: "AAR",
     url: "/docs/aar",
     icon: ScanEye,
+    contents: docData
+      .filter((data) => data.category === "aar")
+      .map((item) => ({
+        title: item.title,
+        url: `/docs/aar/${item.documentId}`,
+      })),
   },
 ];
 
-export function AppSidebar() {
-  const pathname = usePathname();
 
   return (
     <Sidebar collapsible="icon" className="mt-16">
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {items.map((item) =>
-              item.contents ? (
+            {category.map((item) =>
+              item.contents.length > 0 ?  (
                 <Collapsible
                   key={item.title}
                   className="group/collapsible"
