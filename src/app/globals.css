@@ -6,6 +6,43 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* 內容樣式 */
+.content h1 {
+  @apply text-4xl mb-4 pb-4 font-bold border-b
+}
+
+.content h2 {
+  @apply text-3xl my-8 font-semibold 
+}
+
+.content h3 {
+  @apply text-2xl my-4
+}
+
+.content h4 {
+  @apply text-xl my-4
+}
+
+.content h5 {
+  @apply text-lg my-2
+}
+
+.content h6 {
+  @apply text-base my-2
+}
+
+.content p {
+  @apply mb-4
+}
+
+.content blockquote {
+  @apply border-l-4 border-gray-200 italic my-8 pl-8
+}
+
+.content img {
+  @apply my-8 object-cover w-full;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -33,6 +70,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -59,6 +104,14 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

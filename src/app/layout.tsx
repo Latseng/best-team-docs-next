@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-zinc-900`}
       >
         <ThemeProvider
           attribute="class"
@@ -37,52 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="border h-16 px-8 flex gap-8 justify-between items-center">
-            <Link
-              className="flex items-center gap-2"
-              href="./"
-            >
-              <Image
-                aria-hidden
-                src="/logo.svg"
-                alt="Logo icon"
-                width={32}
-                height={32}
-              />
-              文件系統
-            </Link>
-            <a
-              className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                aria-hidden
-                src="/window.svg"
-                alt="Window icon"
-                width={16}
-                height={16}
-              />
-              Examples
-            </a>
-            <a
-              className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                aria-hidden
-                src="/globe.svg"
-                alt="Globe icon"
-                width={16}
-                height={16}
-              />
-              Go to nextjs.org →
-            </a>
-            <ThemeToggle />
-          </header>
+          <Header />
           {children}
         </ThemeProvider>
       </body>
