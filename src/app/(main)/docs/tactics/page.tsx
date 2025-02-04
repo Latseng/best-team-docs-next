@@ -18,11 +18,11 @@ export default async function Tatics() {
     content: BlocksContent;
   }[] = await getDocData();
   
-  const docData = result.filter((item) => (
-    item.category === "tactics"
-  ));
+  // const docData = result.filter((item) => (
+  //   item.category === "tactics"
+  // ));
 
-   const content: BlocksContent = docData[0].content;
+  //  const content: BlocksContent = docData[0].content;
    
   return (
     <section className="content p-4">

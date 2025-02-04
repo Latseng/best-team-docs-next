@@ -19,8 +19,7 @@ export default function Home() {
             </Link>
             <a
               className="rounded-full transition-colors flex items-center justify-center bg-gray-200 text-gray-800 gap-2 hover:bg-[#dddddd] dark:hover:bg-gray-700 dark:bg-gray-800 dark:text-gray-200 sm:text-base h-10 w-4/5  sm:h-12 px-4 sm:px-5"
-              href=""
-              target="_blank"
+              href="/"
               rel="noopener noreferrer"
             >
               內容管理

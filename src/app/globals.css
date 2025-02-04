@@ -41,7 +41,7 @@ body {
 
 .content img {
   @apply my-8 object-cover w-full;
-}
+} 
 
 @layer base {
   :root {

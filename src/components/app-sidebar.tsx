@@ -41,12 +41,11 @@ const category = [
     url: "/docs/tactics",
     icon: Shield,
     //contens可選
-    contents: docData
-      .filter((data) => data.category === "tactics")
+    contents: docData && docData.length > 0 ? (docData.filter((data) => data.category === "tactics")
       .map((item) => ({
         title: item.title,
         url: `/docs/tactics/${item.documentId}`,
-      })),
+      }))) : ([]),
     // [
     //   {
     //     title: "CQB的原則",
@@ -62,34 +61,31 @@ const category = [
     title: "裝備",
     url: "/docs/equipment",
     icon: Bolt,
-    contents: docData.filter((data) => (
-      data.category === "equipment"
-    )).map((item) => ({
-      title: item.title,
-      url: `/docs/equipment/${item.documentId}`
-    }))
+    contents: docData && docData.length > 0 ? (docData.filter((data) => data.category === "tactics")
+      .map((item) => ({
+        title: item.title,
+        url: `/docs/tactics/${item.documentId}`,
+      }))) : ([]),
   },
   {
     title: "肌力與體能",
     url: "/docs/strength-and-conditioning",
     icon: BicepsFlexed,
-    contents: docData
-      .filter((data) => data.category === "strength")
+    contents: docData && docData.length > 0 ? (docData.filter((data) => data.category === "tactics")
       .map((item) => ({
         title: item.title,
-        url: `/docs/strength-and-conditioning/${item.documentId}`,
-      })),
+        url: `/docs/tactics/${item.documentId}`,
+      }))) : ([]),
   },
   {
     title: "AAR",
     url: "/docs/aar",
     icon: ScanEye,
-    contents: docData
-      .filter((data) => data.category === "aar")
+    contents: docData && docData.length > 0 ? (docData.filter((data) => data.category === "tactics")
       .map((item) => ({
         title: item.title,
-        url: `/docs/aar/${item.documentId}`,
-      })),
+        url: `/docs/tactics/${item.documentId}`,
+      }))) : ([]),
   },
 ];
 
