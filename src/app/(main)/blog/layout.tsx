@@ -1,33 +1,31 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-// import {
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   BreadcrumbLink,
-//   BreadcrumbList,
-//   BreadcrumbPage,
-//   BreadcrumbSeparator,
-// } from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import { AppSidebar } from "@/components/app-sidebar";
 import Header from "@/components/Header";
 
-async function getDocData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs`);
-  const data = await res.json();
-  return data.data;
+interface docCategories {
+  category: string;
+  content: [];
+  createdAt: string;
+  description: string | null;
+  documentId: string;
+  id: number;
+  publishedAt: string;
+  name: string;
+  updatedAt: string;
+  slug: string;
+  docs: [];
 }
 
-interface LayoutProps {
-  children: React.ReactNode;
-  docData: any; // Replace 'any' with a more specific type if possible
-}
+import { ReactNode } from "react";
 
-export default async function Layout({ children }: LayoutProps) {
-  const docData = await getDocData();
+export default async function Layout({
+  children,
+  docCategories,
+}: {
+  children: ReactNode;
+  docCategories: docCategories[];
+}) {
+ 
   return (
-    <SidebarProvider>
-      <Header docData={docData} />
-      
+    <>
       <div className="mt-16">
        
           {/* <Breadcrumb>
@@ -43,7 +41,6 @@ export default async function Layout({ children }: LayoutProps) {
           </Breadcrumb> */}
         </div>
         {children}
-      
-    </SidebarProvider>
+    </>
   );
 }

@@ -9,8 +9,11 @@ async function getDocData(id: string) {
   return result.data;
 }
 
-export default async function TaticDoc({ params }: { params: Promise<{ id: string }> }) {
-  
+export default async function TaticDoc({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
 
   const docData: {
@@ -25,9 +28,8 @@ export default async function TaticDoc({ params }: { params: Promise<{ id: strin
 
   if (!docData) {
     // 處理找不到文章的情況，例如導向 404 頁面
-    return <div>文章不存在</div>; // 或使用更完善的 404 處理方式
+    return <div>內容不存在</div>; // 或使用更完善的 404 處理方式
   }
-
 
   return (
     <>

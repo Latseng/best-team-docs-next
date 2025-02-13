@@ -1,7 +1,5 @@
 "use client";
-
-import { ChevronRight, type LucideIcon } from "lucide-react";
-
+import { ChevronRight } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -18,17 +16,30 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { Compass, Shield, ScanEye, BicepsFlexed, Bolt } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-import {
-  Compass,
-  Shield,
-  ScanEye,
-  BicepsFlexed,
-  Bolt,
-} from "lucide-react";
+interface docCategories {
+  category: string;
+  content: [];
+  createdAt: string;
+  description: string | null;
+  documentId: string;
+  id: number;
+  publishedAt: string;
+  name: string;
+  updatedAt: string;
+  slug: string;
+  docs: { title: string; documentId: string }[];
+}
 
-export default function NavMain(
-  { docData }) {
+interface NavMainProps {
+  docCategories: docCategories[];
+}
+
+export default function NavMain({ docCategories }: NavMainProps) {
+  const pathname = usePathname();
 
   //menu items
   const category = [
@@ -45,10 +56,11 @@ export default function NavMain(
       icon: Shield,
       //contens可選
       contents:
-        docData && docData.length > 0
-          ? docData
-              .filter((data) => data.category === "tactics")
-              .map((item) => ({
+        docCategories.filter((item) => item.slug === "tactics")[0]?.docs
+          .length > 0
+          ? docCategories
+              .filter((item) => item.slug === "tactics")[0]
+              .docs.map((item) => ({
                 title: item.title,
                 url: `/docs/tactics/${item.documentId}`,
               }))
@@ -69,12 +81,13 @@ export default function NavMain(
       url: "/docs/equipment",
       icon: Bolt,
       contents:
-        docData && docData.length > 0
-          ? docData
-              .filter((data) => data.category === "tactics")
-              .map((item) => ({
+        docCategories.filter((item) => item.slug === "tactics")[0]?.docs
+          .length > 0
+          ? docCategories
+              .filter((item) => item.slug === "equipment")[0]
+              .docs.map((item) => ({
                 title: item.title,
-                url: `/docs/tactics/${item.documentId}`,
+                url: `/docs/equipment/${item.documentId}`,
               }))
           : [],
     },
@@ -83,12 +96,14 @@ export default function NavMain(
       url: "/docs/strength-and-conditioning",
       icon: BicepsFlexed,
       contents:
-        docData && docData.length > 0
-          ? docData
-              .filter((data) => data.category === "tactics")
-              .map((item) => ({
+        docCategories.filter(
+          (item) => item.slug === "strength-and-conditioning"
+        )[0]?.docs.length > 0
+          ? docCategories
+              .filter((item) => item.slug === "strength-and-conditioning")[0]
+              .docs.map((item) => ({
                 title: item.title,
-                url: `/docs/tactics/${item.documentId}`,
+                url: `/docs/strength-and-conditioning/${item.documentId}`,
               }))
           : [],
     },
@@ -97,12 +112,12 @@ export default function NavMain(
       url: "/docs/aar",
       icon: ScanEye,
       contents:
-        docData && docData.length > 0
-          ? docData
-              .filter((data) => data.category === "tactics")
-              .map((item) => ({
+        docCategories.filter((item) => item.slug === "aar")[0]?.docs.length > 0
+          ? docCategories
+              .filter((item) => item.slug === "aar")[0]
+              .docs.map((item) => ({
                 title: item.title,
-                url: `/docs/tactics/${item.documentId}`,
+                url: `/docs/aar/${item.documentId}`,
               }))
           : [],
     },
@@ -113,13 +128,21 @@ export default function NavMain(
       <SidebarGroupLabel>目錄</SidebarGroupLabel>
       <SidebarMenu>
         {category.map((item) => (
-          <Collapsible key={item.title} asChild>
+          <Collapsible
+            key={item.title}
+            asChild
+            defaultOpen={pathname.startsWith(item.url)}
+          >
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.title}>
-                <a href={item.url}>
+              <SidebarMenuButton
+                isActive={pathname === item.url}
+                asChild
+                tooltip={item.title}
+              >
+                <Link href={item.url}>
                   <item.icon />
                   <span className="text-base font-semibold">{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
               {item.contents?.length ? (
                 <>
@@ -133,10 +156,13 @@ export default function NavMain(
                     <SidebarMenuSub>
                       {item.contents?.map((content) => (
                         <SidebarMenuSubItem key={content.title}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={content.url}>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={pathname.startsWith(content.url)}
+                          >
+                            <Link href={content.url}>
                               <span>{content.title}</span>
-                            </a>
+                            </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}

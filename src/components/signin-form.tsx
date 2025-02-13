@@ -69,9 +69,17 @@ export function SigninForm() {
           <CardFooter className="flex flex-col">
             <SubmitButton className="w-full" text="登入" loadingText="登入" />
             <StrapiErrors error={formState?.strapiErrors} />
+            <a
+              href="https://strapi-backend-eqf9.onrender.com"
+              target="_blank"
+              className="mt-4 p-2 text-sm hover:text-sky-600"
+            >
+              管理員登入
+            </a>
           </CardFooter>
         </Card>
       </form>
+      <div className="mt-8 text-center"></div>
     </div>
   );
 }

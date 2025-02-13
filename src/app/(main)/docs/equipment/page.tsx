@@ -1,3 +1,3 @@
 export default function Equipment() {
-  return <section className="p-4">裝備</section>;
+  return <><h1>裝備</h1></>;
 }

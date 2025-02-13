@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { usePathname } from "next/navigation";
 import { LogoutButton } from "./logout-button";
 import { Button } from "./ui/button";
 import {
@@ -19,10 +16,20 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import  NavMain from "./nav-main";
+import HeaderAction from "./header-action";
+import { SidebarContent, SidebarFooter, SidebarProvider } from "./ui/sidebar";
 
 
-export default function Header({ docData }) {
-  const pathname = usePathname();
+async function getDocCategories() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`
+  );
+  const data = await res.json();
+  return data.data;
+}
+
+export default async function Header() {
+const docCategories = await getDocCategories();
 
   return (
     <header className="bg-gray-50 dark:bg-zinc-900 fixed top-0 left-0 w-full z-50 border h-16 px-4 sm:px-8 flex gap-8 justify-between items-center">
@@ -35,9 +42,8 @@ export default function Header({ docData }) {
           width={36}
           height={36}
         />
-        文件系統2.0
+        文件資料庫
       </Link>
-
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>
@@ -56,34 +62,23 @@ export default function Header({ docData }) {
                 height={36}
               />
               <SheetTitle>文件系統2.0</SheetTitle>
-              <SheetDescription>{null}</SheetDescription>
+              <SheetDescription></SheetDescription>
             </SheetHeader>
-            <div className="border rounded-lg mb-4">
-              <NavMain docData={docData} />
-            </div>
-            <SheetFooter>
-              <div className="flex items-center gap-4">
-                <ThemeToggle />
-                <LogoutButton />
-              </div>
-            </SheetFooter>
+            <SidebarProvider className="grid">
+              <SidebarContent className="border rounded-md">
+                <NavMain docCategories={docCategories} />
+              </SidebarContent>
+              <SidebarFooter>
+                <div className="flex justify-center items-center gap-4">
+                  <HeaderAction />
+                </div>
+              </SidebarFooter>
+            </SidebarProvider>
           </SheetContent>
         </Sheet>
       </div>
-
       <div className="hidden md:flex gap-4 items-center">
-        {pathname.startsWith("/docs") && (
-          <Button variant="outline" asChild>
-            <Link href="/blog">共筆</Link>
-          </Button>
-        )}
-        {pathname.startsWith("/blog") && (
-          <Button variant="outline" asChild>
-            <Link href="/docs">文件</Link>
-          </Button>
-        )}
-        <ThemeToggle />
-        <LogoutButton />
+        <HeaderAction />
       </div>
     </header>
   );

@@ -25,7 +25,7 @@ export default async function Tatics() {
   //  const content: BlocksContent = docData[0].content;
    
   return (
-    <section className="content p-4">
+    <>
       <h1>戰術</h1>
       <p>戰術，指的是完成任務的技術與方法。</p>
       <p>
@@ -38,6 +38,6 @@ export default async function Tatics() {
       <p>
         雖是這麼說，但這一個篇章的開頭，還是得從CQB，這個在出勤時，跟團隊夥伴密切相關的技術開始談起。
       </p>
-    </section>
+    </>
   );
 }

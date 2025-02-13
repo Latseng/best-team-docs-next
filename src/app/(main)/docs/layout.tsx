@@ -8,28 +8,27 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 //   BreadcrumbSeparator,
 // } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { AppSidebar } from "@/components/app-sidebar";
-import Header from "@/components/Header";
+import AppSidebar from "@/components/app-sidebar";
+import { ReactNode } from "react";
+import Pagination from "@/components/Pagination";
 
 
-async function getDocData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs`);
+async function getDocCategories() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`
+  );
   const data = await res.json();
   return data.data;
 }
 
-interface LayoutProps {
-  children: React.ReactNode;
-  docData: any; // Replace 'any' with a more specific type if possible
-}
+export default async function Layout({ children }: { children: ReactNode }) {
 
-export default async function Layout({ children }: LayoutProps) {
-   const docData = await getDocData();
+const docCategories = await getDocCategories();
+
   return (
     <SidebarProvider>
-      <Header docData={docData} />
-      <AppSidebar docData={docData} />
-      <div className="mt-16">
+      <AppSidebar docCategories={docCategories} />
+      <div className="mt-16 w-full">
         <div className="flex items-center gap-2 p-2">
           <SidebarTrigger className="hidden md:flex" />
           <Separator
@@ -48,7 +47,8 @@ export default async function Layout({ children }: LayoutProps) {
             </BreadcrumbList>
           </Breadcrumb> */}
         </div>
-        {children}
+        <section className="content p-4 sm:px-8">{children}</section>
+        <Pagination docCategories={docCategories} />
       </div>
     </SidebarProvider>
   );
