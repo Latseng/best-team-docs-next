@@ -129,10 +129,10 @@ export default function NavMain({ docCategories }: NavMainProps) {
                 asChild
                 tooltip={item.title}
               >
-                <Link href={item.url}>
+                <a href={item.url}>
                   <item.icon />
                   <span className="text-base font-semibold">{item.title}</span>
-                </Link>
+                </a>
               </SidebarMenuButton>
               {item.contents?.length ? (
                 <>
@@ -150,9 +150,9 @@ export default function NavMain({ docCategories }: NavMainProps) {
                             asChild
                             isActive={pathname.startsWith(content.url)}
                           >
-                            <Link href={content.url}>
+                            <a href={content.url}>
                               <span>{content.title}</span>
-                            </Link>
+                            </a>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}

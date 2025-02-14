@@ -22,10 +22,11 @@ interface PaginationProps {
 
 const Pagination = ({ docCategories }: PaginationProps) => {
   const pathname = usePathname();
-  
+
   const pathSegments = pathname.split("/").filter(Boolean); // 過濾空字串
 
-  const currentCategory = pathSegments[1] || null; // 目錄
+  //因為導覽頁面沒有第二層，所以currentCategory要設為'tactics'才能正常運作
+  const currentCategory = pathSegments[1] || "tactics"; // 目錄
   const currentContent = pathSegments[2] || null; // 內容
 
   // 找出當前目錄的索引
@@ -109,14 +110,14 @@ const Pagination = ({ docCategories }: PaginationProps) => {
         docCategories[docCategories.length - 1].docs[
           docCategories[docCategories.length - 1].docs.length - 1
         ].documentId && (
-        <a
-          href={nextPath || "#"}
-          className="flex p-4 border rounded-md cursor-pointer hover:bg-gray-50"
-        >
-          {nextTitle}
-          <ChevronRight className="mx-2" />
-        </a>
-      )}
+      <a
+        href={nextPath || "#"}
+        className="flex p-4 border rounded-md cursor-pointer hover:bg-gray-50"
+      >
+        {nextTitle}
+        <ChevronRight className="mx-2" />
+      </a>
+      )} 
     </div>
   );
 };

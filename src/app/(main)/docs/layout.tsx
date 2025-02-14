@@ -10,8 +10,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import AppSidebar from "@/components/app-sidebar";
 import { ReactNode } from "react";
-// import Pagination from "@/components/Pagination";
-
+import Pagination from "@/components/Pagination";
 
 async function getDocCategories() {
   const res = await fetch(
@@ -24,7 +23,13 @@ async function getDocCategories() {
 
 export default async function Layout({ children }: { children: ReactNode }) {
 
-const docCategories = await getDocCategories();
+const expectedOrder = ["導覽", "戰術", "裝備", "肌力與體能", "AAR"];
+
+const result = await getDocCategories();
+//整理API陣列資料順序
+const docCategories = expectedOrder.map((item) => (
+  result.find((resultItem: { name: string }) => resultItem.name === item)
+));
 
   return (
     <SidebarProvider>
@@ -49,7 +54,7 @@ const docCategories = await getDocCategories();
           </Breadcrumb> */}
         </div>
         <section className="content p-4 sm:px-8">{children}</section>
-        {/* <Pagination docCategories={docCategories} /> */}
+        <Pagination docCategories={docCategories} />
       </div>
     </SidebarProvider>
   );
