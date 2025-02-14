@@ -10,13 +10,14 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import AppSidebar from "@/components/app-sidebar";
 import { ReactNode } from "react";
-import Pagination from "@/components/Pagination";
+// import Pagination from "@/components/Pagination";
 
 
 async function getDocCategories() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`
   );
+  if (!res.ok) return [];
   const data = await res.json();
   return data.data;
 }
@@ -48,7 +49,7 @@ const docCategories = await getDocCategories();
           </Breadcrumb> */}
         </div>
         <section className="content p-4 sm:px-8">{children}</section>
-        <Pagination docCategories={docCategories} />
+        {/* <Pagination docCategories={docCategories} /> */}
       </div>
     </SidebarProvider>
   );

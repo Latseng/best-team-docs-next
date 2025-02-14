@@ -24,6 +24,7 @@ async function getDocCategories() {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`
   );
+  if (!res.ok) return [];
   const data = await res.json();
   return data.data;
 }

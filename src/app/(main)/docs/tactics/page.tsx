@@ -1,22 +1,22 @@
-import { type BlocksContent } from "@strapi/blocks-react-renderer";
-import BlockRendererClient from "@/components/BlockRendererClient";
+// import { type BlocksContent } from "@strapi/blocks-react-renderer";
+// import BlockRendererClient from "@/components/BlockRendererClient";
 
-async function getDocData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs`);
-  const data = await res.json();
-  return data.data;
-}
+// async function getDocData() {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs`);
+//   const data = await res.json();
+//   return data.data;
+// }
 
 export default async function Tatics() {
-  const result: {
-    id: number;
-    imageUrl: string;
-    title: string;
-    description: string;
-    documentId: string;
-    category: string;
-    content: BlocksContent;
-  }[] = await getDocData();
+  // const result: {
+  //   id: number;
+  //   imageUrl: string;
+  //   title: string;
+  //   description: string;
+  //   documentId: string;
+  //   category: string;
+  //   content: BlocksContent;
+  // }[] = await getDocData();
   
   // const docData = result.filter((item) => (
   //   item.category === "tactics"

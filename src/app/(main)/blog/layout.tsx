@@ -1,27 +1,9 @@
-import Header from "@/components/Header";
-
-interface docCategories {
-  category: string;
-  content: [];
-  createdAt: string;
-  description: string | null;
-  documentId: string;
-  id: number;
-  publishedAt: string;
-  name: string;
-  updatedAt: string;
-  slug: string;
-  docs: [];
-}
-
 import { ReactNode } from "react";
 
 export default async function Layout({
-  children,
-  docCategories,
+  children
 }: {
   children: ReactNode;
-  docCategories: docCategories[];
 }) {
  
   return (

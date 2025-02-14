@@ -65,23 +65,13 @@ export default function NavMain({ docCategories }: NavMainProps) {
                 url: `/docs/tactics/${item.documentId}`,
               }))
           : [],
-      // [
-      //   {
-      //     title: "CQB的原則",
-      //     url: "/docs/tactics/the-principle-of-cqb",
-      //   },
-      //   {
-      //     title: "CQB基本觀念：受迫面",
-      //     url: "/docs/tactics/cqb-fundamentals-the-fatal-funnel",
-      //   },
-      // ]
     },
     {
       title: "裝備",
       url: "/docs/equipment",
       icon: Bolt,
       contents:
-        docCategories.filter((item) => item.slug === "tactics")[0]?.docs
+        docCategories.filter((item) => item.slug === "equipment")[0]?.docs
           .length > 0
           ? docCategories
               .filter((item) => item.slug === "equipment")[0]

@@ -3,12 +3,12 @@ import { z } from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { loginUserService, registerUserService } from "./services/auth-service";
+import { loginUserService } from "./services/auth-service";
 
 const config = {
-  maxAge: 60 * 60 * 24 * 7, // 1 week
+  maxAge: 60 * 60 * 24 * 1, // 1 day
   path: "/",
-  domain: process.env.HOST ?? "localhost",
+  domain: process.env.HOST ?? process.env.VERCEL_URL ?? "localhost",
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
 };
