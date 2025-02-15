@@ -1,5 +1,6 @@
 import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "@/components/BlockRendererClient";
+import Image from "next/image";
 
 // 設定 ISR：每 10 秒重新生成一次頁面
 export const revalidate = 10;
@@ -55,9 +56,12 @@ export async function generateStaticParams() {
 }
 
 async function getDocData(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs/${id}`, {
-    next: { revalidate: 10 }, // 使用 ISR，每 10 秒重新生成這筆資料
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/docs/${id}?populate=*`,
+    {
+      next: { revalidate: 10 }, // 使用 ISR，每 10 秒重新生成這筆資料
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data"); // 錯誤處理
@@ -92,6 +96,7 @@ export default async function TacticsDocs({
     documentId: string;
     category: string;
     content: BlocksContent;
+    cover: {url: string} | null;
   } = await getDocData(id);
 
   if (!docData) {
@@ -102,10 +107,11 @@ export default async function TacticsDocs({
       </div>
     ); // 或使用更完善的 404 處理方式
   }
-
+  
   return (
     <>
       <h1>{docData.title}</h1>
+      {docData.cover && <Image src={docData.cover.url} width={512} height={512} alt="cover image" />}
       <BlockRendererClient content={docData.content} />
     </>
   );

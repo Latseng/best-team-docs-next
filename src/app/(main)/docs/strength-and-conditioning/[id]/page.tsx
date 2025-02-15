@@ -1,5 +1,6 @@
 import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "@/components/BlockRendererClient";
+import Image from "next/image";
 
 // 設定 ISR：每 10 秒重新生成一次頁面
 export const revalidate = 10;
@@ -92,6 +93,7 @@ export default async function StrengthDocs({
     documentId: string;
     category: string;
     content: BlocksContent;
+    cover: { url: string } | null;
   } = await getDocData(id);
 
   if (!docData) {
@@ -106,6 +108,7 @@ export default async function StrengthDocs({
   return (
     <>
       <h1>{docData.title}</h1>
+       {docData.cover && <Image src={docData.cover.url} width={512} height={512} alt="cover image" />}
       <BlockRendererClient content={docData.content} />
     </>
   );
