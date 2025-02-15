@@ -1,6 +1,9 @@
 import { type BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "@/components/BlockRendererClient";
 
+// 設定 ISR：每 10 秒重新生成一次頁面
+export const revalidate = 10;
+
 interface docCategories {
   category: string;
   content: [];
@@ -52,7 +55,9 @@ export async function generateStaticParams() {
 }
 
 async function getDocData(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/docs/${id}`, {
+    next: { revalidate: 10 }, // 使用 ISR，每 10 秒重新生成這筆資料
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch data"); // 錯誤處理

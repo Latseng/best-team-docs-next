@@ -14,7 +14,10 @@ import Pagination from "@/components/Pagination";
 
 async function getDocCategories() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`,
+    {
+      next: { revalidate: 10 }, // 每 10 秒重新生成這筆資料
+    }
   );
   if (!res.ok) return [];
   const data = await res.json();
