@@ -99,7 +99,7 @@ const Pagination = ({ docCategories }: PaginationProps) => {
       {pathname !== "/docs" && (
         <a
           href={prevPath || "#"}
-          className="flex p-4 border rounded-md cursor-pointer hover:bg-gray-50"
+          className="flex p-4 border rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <ChevronLeft className="mx-2" />
           {prevTitle}
@@ -110,14 +110,14 @@ const Pagination = ({ docCategories }: PaginationProps) => {
         docCategories[docCategories.length - 1].docs[
           docCategories[docCategories.length - 1].docs.length - 1
         ].documentId && (
-      <a
-        href={nextPath || "#"}
-        className="flex p-4 border rounded-md cursor-pointer hover:bg-gray-50"
-      >
-        {nextTitle}
-        <ChevronRight className="mx-2" />
-      </a>
-      )} 
+        <a
+          href={nextPath || "#"}
+          className="flex p-4 border rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          {nextTitle}
+          <ChevronRight className="mx-2" />
+        </a>
+      )}
     </div>
   );
 };
